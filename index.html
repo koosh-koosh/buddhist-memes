@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<meta name="description" content="Web page dedicated to Hijiri Byakuren" />
+		<meta property="og:description" content="Enjoy some bouncy Byakuren." />
+		<meta property="og:image" content="jumpy.webp" />
+
+		<link rel="icon" href="icon.webp" />
+
+		<title>motorcycle jesus loves you</title>
+		<meta property="og:title" content="motorcycle jesus loves you" />
+		<style>
+			@font-face {
+				font-family: "Monocraft";
+				src: url(/Monocraft.otf);
+			}
+		</style>
+		<style>
+			body {
+				margin: 0;
+			}
+
+			#background {
+				height: 100vh;
+				height: 100dvh;
+
+				background-image: url("background.webp");
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: top center;
+
+				position: relative;
+
+				overflow: hidden;
+			}
+
+			.obscure {
+				--aspect-ratio: 0;
+
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				width: calc((clamp(1.55, var(--aspect-ratio), 1.66) - 1.55) * 9.09 * 39px);
+
+				background-color: red;
+			}
+
+			.jumpy-container {
+				position: relative;
+			}
+
+			.jumpy {
+				--move-delay: 0s;
+
+				position: absolute;
+				width: 200px;
+				height: 200px;
+
+				left: 0;
+
+				will-change: transform;
+				backface-visibility: hidden;
+
+				animation: move 8s linear infinite,
+					jump-top 0.4s cubic-bezier(0.6, 0.01, 0.93, 0.47) alternate-reverse infinite;
+				animation-delay: var(--move-delay), calc(var(--move-delay) / 40);
+			}
+
+			#jumpy-bottom-container > .jumpy {
+				left: 0;
+
+				animation: move-bottom 8s linear infinite,
+					jump-bottom 0.4s cubic-bezier(0.6, 0.01, 0.93, 0.47) alternate-reverse infinite;
+				animation-delay: var(--move-delay), calc(var(--move-delay) / 50);
+			}
+
+			#jumpy-top-container {
+				position: absolute;
+				top: 0;
+			}
+
+			#jumpy-bottom-container {
+				position: absolute;
+				bottom: 0;
+			}
+
+			@keyframes move {
+				from {
+					/* left: 0; */
+					translate: 0;
+				}
+				to {
+					/* left: calc(100vw + 200px); */
+					translate: calc(100vw + 200px);
+				}
+			}
+
+			@keyframes move-bottom {
+				from {
+					/* left: calc(100vw + 200px); */
+					translate: calc(100vw + 200px);
+				}
+				to {
+					/* left: 0; */
+					translate: 0;
+				}
+			}
+
+			@keyframes jump-top {
+				from {
+					transform: translateX(-100%) scaleY(-1) translateY(50%);
+				}
+				to {
+					transform: translateX(-100%) scaleY(-1) translateY(35%);
+				}
+			}
+			@keyframes jump-bottom {
+				from {
+					transform: translateX(-100%) translateY(-50%) scaleX(-1);
+				}
+				to {
+					transform: translateX(-100%) translateY(calc(-50% - 15%)) scaleX(-1);
+				}
+			}
+
+			@keyframes tilt {
+				0% {
+					transform: rotate(0deg) scale(1.05);
+				}
+				25% {
+					transform: rotate(1deg) scale(1.05);
+				}
+				50% {
+					transform: rotate(0deg) scale(1.05);
+				}
+				75% {
+					transform: rotate(-1deg) scale(1.05);
+				}
+				100% {
+					transform: rotate(0deg) scale(1.05);
+				}
+			}
+
+			#background-image {
+				position: absolute;
+				object-fit: cover;
+				width: 100%;
+				height: 100%;
+
+				/* transform: rotate(2deg) scale(1.0); */
+				animation: tilt 1.7 infinite cubic-bezier(0.6, 0.01, 0.93, 0.47);
+			}
+
+			#container {
+				contain: strict;
+
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				width: 100%;
+				height: 100%;
+
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+
+				gap: 5em;
+
+				--bell-duration: 0;
+				animation: bell var(--bell-duration) infinite alternate linear;
+			}
+
+			#container > * {
+				translate: 0 -1em;
+			}
+
+			@keyframes bell {
+				from {
+					translate: 5px;
+				}
+				to {
+					translate: -5px;
+				}
+			}
+
+			#the {
+				width: min(450px, 75vw);
+				animation: the infinite linear;
+				animation-duration: 60s;
+				border-radius: 2px;
+				cursor: pointer;
+				transition: scale 100ms ease-out;
+			}
+
+			#the:active {
+				scale: 0.98;
+			}
+
+			@keyframes the {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+
+			#beloved {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				width: 100px;
+				animation: beloved 8s infinite linear;
+				opacity: 0.1;
+			}
+
+			#offscreen {
+				contain: strict;
+				position: absolute;
+				--translate-by: 8px;
+				transform: translateX(calc(var(--translate-by) * 8000));
+			}
+
+			body {
+				overflow: hidden;
+			}
+
+			#click-counter {
+				z-index: 1;
+				font-size: 24px;
+				font-family: "Monocraft", monospace;
+				color: white;
+				text-align: center;
+			}
+
+			footer {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				right: 0;
+
+				text-align: center;
+				color: white;
+				font-family: sans-serif, system-ui;
+
+				opacity: 0.16;
+				transition: opacity 0.5s;
+			}
+
+			#footer-hover {
+				position: absolute;
+				inset: -125px;
+				user-select: none;
+				z-index: -1;
+			}
+
+			footer:hover,
+			footer:focus,
+			footer:focus-within {
+				opacity: 1;
+			}
+
+			#disclaimer:has(#translated-disclaimer[lang="en"]) #disclaimer-separator {
+				display: none;
+			}
+
+			#disclaimer-separator {
+				margin: 0 0.5em;
+			}
+
+			#translated-disclaimer[lang="en"] {
+				display: none;
+			}
+
+			#contact a {
+				color: lightblue;
+			}
+
+			#contact > span {
+				display: inline-block;
+				width: 50%;
+
+				&:first-child {
+					text-align: right;
+				}
+				&:last-child {
+					text-align: left;
+				}
+			}
+
+			#mail-subject {
+				display: inline-block;
+			}
+
+			#mail-subject::before {
+				content: "chatbots";
+				opacity: 1;
+				display: inline-block;
+				animation: mail-subject-options 15s infinite;
+			}
+
+			#mail-subject::after {
+				display: inline;
+				content: ": ";
+				white-space: pre;
+			}
+
+			@keyframes mail-subject-options {
+				0%,
+				12.5% {
+					transform: translateY(0);
+					content: "chatbots";
+					opacity: 1;
+				}
+				18.75% {
+					transform: translateY(1em);
+					opacity: 0;
+				}
+				18.76% {
+					transform: translateY(-1em);
+				}
+
+				25%,
+				37.5% {
+					transform: translateY(0);
+					content: "touhou";
+					opacity: 1;
+				}
+				43.75% {
+					transform: translateY(1em);
+					opacity: 0;
+				}
+				43.76% {
+					transform: translateY(-1em);
+				}
+
+				50%,
+				62.5% {
+					transform: translateY(0);
+					content: "programming";
+					opacity: 1;
+				}
+				68.75% {
+					transform: translateY(1em);
+					opacity: 0;
+				}
+				68.76% {
+					transform: translateY(-1em);
+				}
+
+				75%,
+				87.5% {
+					transform: translateY(0);
+					content: "project moon";
+					opacity: 1;
+				}
+				93.75% {
+					transform: translateY(1em);
+					opacity: 0;
+				}
+				93.76% {
+					transform: translateY(-1em);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="offscreen">
+			<h1
+				data-comment="google pls no ban me from search for hiding this pls pls theres no other text in this page to crawl i begg"
+			>
+				Hello welcome to byakuren temple official website (fo real).
+			</h1>
+			<h2>
+				Witness the best rotations and bounces of the Myouren Temple. And hopefully some actual buddhist memes
+				in the future.
+			</h2>
+			<p>Release yourself of the Taoism brain rot. Enjoy the stay desu.</p>
+		</div>
+		<div id="background">
+			<img src="background.webp" id="background-image" />
+			<div id="container">
+				<div id="click-counter"><span id="click-counter-value">...</span> people clicked her.</div>
+				<img
+					title="No memes for now."
+					src="the.webp"
+					alt="Hijiri Byakuren spinning for some reason."
+					id="the"
+				/>
+			</div>
+			<img id="beloved" src="beloved.webp" />
+			<div id="jumpy-top-container"></div>
+			<div id="jumpy-bottom-container"></div>
+			<audio loop src="mfe.opus"></audio>
+		</div>
+		<footer tabindex="-1">
+			<div id="footer-hover"></div>
+			<div id="disclaimer">
+				<span lang="en">Not affiliated with the Buddhist religion.</span><span id="disclaimer-separator">/</span
+				><span id="translated-disclaimer"></span>
+			</div>
+			<div id="contact"></div>
+		</footer>
+		<script>
+			const [message, address] = atob("V3JpdGUgbWUgYW4gZW1haWwgYWJvdXQAMmh1QHNoaXRwb3N0aW5nLmV4cGVydA==").split(
+				"\0"
+			);
+			const contactEl = document.getElementById("contact");
+			contactEl.innerHTML = `<span>${message} <span id="mail-subject"></span></span><span><a href="mailto:${address}">${address}</a></span>`;
+		</script>
+		<script>
+			const translations = {
+				en: "Not affiliated with the Buddhist religion.",
+				zh: "与佛教无关。",
+				es: "No afiliado a la religión budista.",
+				ar: "غير منتسب للدين البوذي.",
+				pt: "Não afiliado à religião budista.",
+				id: "Tidak berafiliasi dengan agama Buddha.",
+				fr: "Non affilié à la religion bouddhiste.",
+				ja: "仏教とは関係ありません。",
+				ru: "Не связано с буддизмом.",
+				de: "Nicht mit der buddhistischen Religion verbunden.",
+				hi: "बौद्ध धर्म से संबद्ध नहीं।",
+				ko: "불교와 관련이 없습니다.",
+				tr: "Budist dini ile bağlantılı değildir.",
+				it: "Non affiliato alla religione buddista.",
+				nl: "Niet gelieerd aan de boeddhistische religie.",
+				pl: "Niezwiązane z religią buddyjską.",
+				vi: "Không liên kết với tôn giáo Phật giáo.",
+				th: "ไม่เกี่ยวข้องกับศาสนาพุทธ",
+				fa: "وابسته به دین بودایی نیست.",
+				ur: "بدھ مت سے وابستہ نہیں۔",
+				tl: "Hindi kaugnay sa relihiyong Budista.",
+			};
+
+			function getTranslationLang() {
+				const userLang = navigator.language || navigator.userLanguage;
+				const langCode = userLang.split("-")[0];
+				return translations[langCode] ? langCode : "en";
+			}
+
+			function getTranslation() {
+				return translations[getTranslationLang()];
+			}
+
+			function setFooterTranslation() {
+				const el = document.getElementById("translated-disclaimer");
+				if (el) {
+					el.textContent = getTranslation();
+					el.lang = getTranslationLang();
+				}
+			}
+
+			setFooterTranslation();
+		</script>
+		<script>
+			(async () => {
+				"use strict";
+				let t = document.getElementById("jumpy-top-container");
+				let b = document.getElementById("jumpy-bottom-container");
+				Array(8)
+					.fill(0)
+					.forEach((_, i) => {
+						const jumpy = document.createElement("img");
+						jumpy.className = "jumpy bottom";
+						if (Math.random() > 0.5) {
+							jumpy.src = "jumpy_mfe.webp";
+						} else {
+							jumpy.src = "jumpy2_mfe.webp";
+						}
+						const more_jumpy = jumpy.cloneNode();
+
+						jumpy.style.setProperty("--move-delay", i + Math.random() / 6 + "s");
+						more_jumpy.style.setProperty("--move-delay", i + Math.random() / 6 + "s");
+
+						t.appendChild(jumpy);
+						b.appendChild(more_jumpy);
+					});
+
+				console.log("https://gelbooru.com/index.php?page=post&s=view&id=2669242", "sauce for wriggle-chan.");
+				console.log(
+					"https://twitter.com/icendor2000/status/1216599542310866945",
+					"took the gyate nun from here and edited the mouth."
+				);
+				console.log("background is from limbis company (limbus mentioned)");
+				console.log("im lazy won't add the other sources.");
+
+				// randomize spinning hijiri
+				const possibilities = ["the.webp", "loveyou.webp", "gals.png", "wave.png", "mouse.png"];
+				const index = Math.floor(Math.random() * possibilities.length);
+
+				document.getElementById("the").src = possibilities[index];
+
+				console.log(
+					"the spinny byaku is from",
+					[
+						"some official game idk.",
+						"twitta https://twitter.com/OrdinaryRizzych/status/1509826921110159372",
+					][index]
+				);
+
+				const container = document.getElementById("container");
+				function ringTheByaku() {
+					const startTime = Date.now();
+					const h = setInterval(() => {
+						const x = (Date.now() - startTime) / 1000;
+						// const f_x = Math.abs(Math.sin((Math.PI * (x / 2)) / 2));
+						const f_x = x ** 3;
+						container.style.setProperty("--bell-duration", f_x * 300 + "ms");
+					}, 10);
+					setTimeout(() => {
+						clearInterval(h);
+						container.style.setProperty("--bell-duration", "0");
+					}, 2000);
+				}
+
+				const fetchCounter = async () => {
+					return await fetch("https://api.buddhistmemes.com/counter", {
+						method: "GET",
+					})
+						.then((v) => v.text())
+						.then((v) => +v);
+				};
+				const updateCounter = () => {
+					fetch("https://api.buddhistmemes.com/counter", {
+						method: "PUT",
+					}).then((v) => {
+						if (v.status === 200) {
+							const el = document.getElementById("click-counter-value");
+							const currentCount = +el.dataset.clicks;
+							if (currentCount) {
+								el.innerText = (currentCount + 1).toLocaleString();
+							}
+						} else if (v.status === 204) {
+							console.log("you have already clicked her");
+						} else {
+							console.error("unknown status when updating counter", v.status, v.statusText);
+						}
+					});
+				};
+
+				// add onclick for enabling mfe theme
+				container.onclick = () => {
+					updateCounter();
+					const audio = document.querySelector("audio");
+					let intervalHandle = null;
+					if (audio.paused) {
+						audio.play();
+						const ringInterval = 11.75 * 1000; // ms
+						const f = () => {
+							if (audio.currentTime === 0) return;
+							ringTheByaku();
+						};
+						let t1 = performance.now();
+						intervalHandle = setInterval(() => {
+							f();
+						}, ringInterval);
+						const h = setInterval(() => {
+							if (audio.currentTime > 0) {
+								f();
+								clearInterval(h);
+							}
+						}, 1);
+					} else {
+						audio.pause();
+						audio.currentTime = 0; // dont wanna implement extra logic for intervals
+						clearInterval(intervalHandle);
+					}
+				};
+
+				{
+					const clicks = await fetchCounter();
+					document.getElementById("click-counter-value").dataset.clicks = clicks;
+					document.getElementById("click-counter-value").innerText = clicks.toLocaleString();
+				}
+			})();
+		</script>
+	</body>
+</html>
